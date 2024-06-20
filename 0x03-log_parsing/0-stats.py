@@ -1,32 +1,65 @@
 #!/usr/bin/python3
 """
-Log Parsing
+Structuring the Data
 """
 import sys
 import re
-import random
 import signal
-from typing import Any
-from time import sleep
 
 
-s = []
-fmt = r'^(\d{1,3}\.){3}\d{1,3} - \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\] "GET /projects/260 HTTP/1\.1" \d{3} \d+$'
-for idx, line in enumerate(sys.stdin):
-    try:
-        lst = []
-        inp_format = re.match(fmt, line)
-        if not inp_format:
-            break
-        for i in line.rsplit():
-            lst.append(i)
+cnts = 0
+status_counts = {
+    '200': 0,
+    '301': 0,
+    '400': 0,
+    '401': 0,
+    '403': 0,
+    '404': 0,
+    '405': 0,
+    '500': 0
+}
+line_cnt = 0
 
-        s.append(int(lst[8]))
-        if idx % 10 == 0:
-            print(f'File size: {sum(s)}')
+log_pattern = re.compile(
+    r'^(?P<ip>\d{1,3}(\.\d{1,3}){3}) - \[(?P<date>.*?)\] "GET /projects/260 HTTP/1\.1" (?P<status>\d{3}) (?P<size>\d+)$'
+)
 
-        print(f'{lst[7]}: {random.randint(1, 10)}')
-    except KeyboardInterrupt:
-        continue
 
-print("Done")
+def print_statistics():
+    """
+    Prints the computed statistics
+    """
+    print(f'File size: {cnts}')
+    for status in sorted(status_counts.keys()):
+        if status_counts[status] > 0:
+            print(f"{status}: {status_counts[status]}")
+
+
+def handle_interrupt(signal, frame):
+    """
+    Handle Keyboard interrupt
+    """
+    print_statistics()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, handle_interrupt)
+
+for line in sys.stdin:
+    fmt = log_pattern.match(line)
+    if fmt:
+        # Extracting data from the log line
+        size = int(fmt.group('size'))
+        status = fmt.group('status')
+
+        # Updating the metrics
+        cnts += size
+        if status in status_counts:
+            status_counts[status] += 1
+
+        line_cnt += 1
+        if line_cnt % 10 == 0:
+            print_statistics()
+
+
+print_statistics()
