@@ -88,22 +88,26 @@ def minOperations(n: int) -> int:
 1. **Define the Problem:**
 
 You want to know how many steps it takes to write 'a' n times.
+
 2. **Special Case:**
 
 If n is 0, it means you don't want to write any 'a', so it returns 0 steps.
+
 3. **Setting Up a List:**
 
 The code creates a list called dp to keep track of the smallest number of steps needed for each number from 0 to n.
-It starts by assuming it takes a very large number of steps (float('inf')) for any number of 'a's. This just means we haven't figured out the real number of steps yet.
+It starts by assuming it takes a very large number of steps ```(float('inf'))``` for any number of 'a's. This just means we haven't figured out the real number of steps yet.
 It knows that it takes 0 steps to have 1 'a' because you haven't done anything yet (this might be a point for clarification since in practice it takes 1 step to insert one 'a').
 Filling Up the List:
 
 The code then goes through each number from 1 to n to figure out how many steps it takes to get there.
 For each number i, it checks all possible smaller numbers j that can divide i evenly.
-If i can be divided by j (meaning i % j == 0), it means you can get i 'a's by first writing j 'a's and then pasting them enough times.
+If i can be divided by j ```(meaning i % j == 0)```, it means you can get i 'a's by first writing j 'a's and then pasting them enough times.
+
 4. **Finding the Minimum Steps:**
 
-For each i, it keeps track of the smallest number of steps needed by comparing the current number of steps (dp[i]) with the steps needed to get to j plus the steps needed to paste j enough times to get i (which is (i // j) steps).
-7. **Return the Result:**
+For each i, it keeps track of the smallest number of steps needed by comparing the current number of steps ```(dp[i])``` with the steps needed to get to j plus the steps needed to paste j enough times to get i ```(which is (i // j)``` steps).
 
-After it figures out the smallest number of steps for each number up to n, it returns the number of steps for n (dp[n]).
+5. **Return the Result:**
+
+After it figures out the smallest number of steps for each number up to n, it returns the number of steps for n ```(dp[n])```.
