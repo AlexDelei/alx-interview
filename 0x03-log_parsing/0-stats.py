@@ -21,7 +21,11 @@ status_counts = {
 line_cnt = 0
 
 log_pattern = re.compile(
-    r'^(?P<ip>\d{1,3}(\.\d{1,3}){3}) - \[(?P<date>.*?)\] "GET /projects/260 HTTP/1\.1" (?P<status>\d{3}) (?P<size>\d+)$'
+    r'^(?P<ip>\d{1,3}(\.\d{1,3}){3}) - '
+    r'\[(?P<date>.*?)\] '
+    r'"GET /projects/260 HTTP/1\.1" '
+    r'(?P<status>\d{3}) '
+    r'(?P<size>\d+)$'
 )
 
 
