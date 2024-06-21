@@ -55,17 +55,14 @@ for line in sys.stdin:
     size = int(fmt.group('size'))
     status = fmt.group('status')
 
-    if fmt:
-        # Updating the metrics
-        cnts += size
-        if status in status_counts:
-            status_counts[status] += 1
+    # Updating the metrics
+    cnts += size
+    if status in status_counts:
+        status_counts[status] += 1
 
-        line_cnt += 1
-        if line_cnt % 10 == 0:
-            print_statistics()
-    else:
-        break
+    line_cnt += 1
+    if line_cnt % 10 == 0:
+        print_statistics()
 
 
 print_statistics()
