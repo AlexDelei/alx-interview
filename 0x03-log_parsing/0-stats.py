@@ -51,15 +51,13 @@ signal.signal(signal.SIGINT, handle_interrupt)
 
 for line in sys.stdin:
     lst = []
-    fmt = log_pattern.match(line)
-    # Extracting data from the matched pattern
-    size = int(fmt.group('size'))
-    status = fmt.group('status')
 
-    if not fmt:
-        lst.append(line.rsplit())
-        size = lst[-1]
-        status = lst[-2]
+    for i in line.rsplit():
+        lst.append(i)
+
+    # Updating the list every time
+    size = int(lst[-1]) if int else None
+    status = lst[-2]
 
     # Updating the metrics
     cnts += size
