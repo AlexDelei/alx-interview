@@ -50,10 +50,15 @@ def handle_interrupt(signal, frame):
 signal.signal(signal.SIGINT, handle_interrupt)
 
 for line in sys.stdin:
+    lst = []
     fmt = log_pattern.match(line)
     # Extracting data from the log line
     size = int(fmt.group('size'))
     status = fmt.group('status')
+
+    if not fmt:
+        lst.append(line.rsplit())
+        status = lst[-1]
 
     # Updating the metrics
     cnts += size
