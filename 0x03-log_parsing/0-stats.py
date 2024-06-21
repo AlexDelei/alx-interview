@@ -60,6 +60,8 @@ for line in sys.stdin:
         line_cnt += 1
         if line_cnt % 10 == 0:
             print_statistics()
+    else:
+        break
 
 
 print_statistics()
