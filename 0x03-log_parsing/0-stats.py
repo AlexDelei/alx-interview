@@ -61,8 +61,7 @@ for line in sys.stdin:
 
     # Updating the metrics
     cnts += size
-    if status:
-        status_counts[status] += 1
+    status_counts[status] += 1
 
     line_cnt += 1
     if line_cnt % 10 == 0:
