@@ -16,6 +16,6 @@ def validUTF8(data):
         byte_data = bytes(data)  # converting all data into binary strings
         # so that the encoding system can work on them
         byte_data.decode('utf-8')
-    except (UnicodeDecodeError, ValueError):
+    except ValueError:
         return False
     return True
