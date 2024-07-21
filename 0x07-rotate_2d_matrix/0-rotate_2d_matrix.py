@@ -4,20 +4,14 @@ Rotating a 2D Matrix
 """
 
 
-N = 3
-
-
 def rotate_2d_matrix(matrix):
     """
     Rotating a 2-dimensional matrix by
     90-degrees
     """
+    N = len(matrix)
     for x in range(0, int(N / 2)):
-
-        # Consider elements in group
-        # of 4 in current square
         for y in range(x, N-x-1):
-
             # store current cell in temp variable
             temp = matrix[x][y]
 
