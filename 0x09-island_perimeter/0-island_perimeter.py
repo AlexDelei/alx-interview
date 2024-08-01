@@ -14,12 +14,27 @@ def island_perimeter(grid):
     Returns:
         - the computer perimeter
     """
-    no_rows = 0
-    no_columns = 0
+    rows = len(grid)
+    cols = len(grid[0])
+    perimeter = 0
 
-    for _ in grid:
-        no_columns += 1
-    for _ in grid[0]:
-        no_rows += 1
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == 1:
+                # Start with a cell contributing 4 to the perimeter
+                perimeter += 4
 
-    return (no_rows + no_columns + 1)
+                # Check the cell above
+                if i > 0 and grid[i - 1][j] == 1:
+                    perimeter -= 1
+                # Check the cell below
+                if i < rows - 1 and grid[i + 1][j] == 1:
+                    perimeter -= 1
+                # Check the cell to the left
+                if j > 0 and grid[i][j - 1] == 1:
+                    perimeter -= 1
+                # Check the cell to the right
+                if j < cols - 1 and grid[i][j + 1] == 1:
+                    perimeter -= 1
+
+    return perimeter
