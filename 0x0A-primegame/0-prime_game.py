@@ -16,6 +16,9 @@ def isWinner(x, nums):
         - Name of the winner if there is; else None.
     """
     def sieve(n):
+        if n < 2:
+            return []
+
         sieve = [True] * (n + 1)
         sieve[0] = sieve[1] = False
         p = 2
