@@ -15,7 +15,7 @@ def isWinner(x, nums):
     Returns:
         - Name of the winner if there is; else None.
     """
-    if x == 0:
+    if x <= 0:
         return None
 
     def sieve(n):
