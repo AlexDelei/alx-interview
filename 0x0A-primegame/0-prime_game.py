@@ -15,6 +15,9 @@ def isWinner(x, nums):
     Returns:
         - Name of the winner if there is; else None.
     """
+    if x == 0:
+        return None
+
     def sieve(n):
         if n < 2:
             return []
@@ -34,6 +37,9 @@ def isWinner(x, nums):
     ben_wins = 0
 
     for n in nums:
+        if n == 0:
+            continue
+
         primes = sieve(n)
         round_prime_count = 0
 
